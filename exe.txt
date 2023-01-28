@@ -1,0 +1,1 @@
+pyinstaller --windowed --name="Coursee" --icon="Hello World.icns" --add-data="login.txt:." --add-data="HYU_pic.png:." --add-binary="chromedriver:." main_gui.py excute.py
