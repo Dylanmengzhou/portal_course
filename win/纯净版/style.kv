@@ -1,0 +1,117 @@
+#:kivy 2.2.1
+<Label>
+    font_size:"20sp"
+    bold:True
+<TextInput>
+    valign:"center"
+    halign:"center"
+    background_color:30/255, 31/255, 29/255,1
+    on_text: self.foreground_color = (1,1,1,1)
+<MyLayout>
+    BoxLayout:
+        spacing:20
+        orientation: "vertical"
+        size:root.width,root.height
+        Label:
+            size_hint:1,0.01
+        Image:
+            source: 'HYU_pic.png'
+            size_hint:1,.7
+        # this part should use the grid layout to make the input box to let user input the account and password
+        GridLayout:
+            cols:3
+            rows:3
+            size_hint:1,.4
+            padding: 10
+            spacing: 10
+            Label:
+                # set the font size
+                # font_size: 20
+                text:"账号："
+            TextInput:
+                id:account_num
+                text:""
+                multiline:False
+            GridLayout:
+                cols:2
+                rows:1
+                # padding:20
+                spacing:20
+                RoundedButton:
+                    text:"保存信息"
+                    # font_size:15
+                    on_press:root.save_info()
+                RoundedButton:
+                    text:"加载信息"
+                    # font_size:15
+                    size_hint:1,.1
+                    on_press:root.load_info()
+            Label:
+                # font_size: 20
+                text:"密码："
+            TextInput:
+                id:password
+                text:""
+                multiline:False
+                password:True
+            RoundedButton:
+                id:password_show_btn
+                text:"显示密码"
+                size_hint:1,.1
+                on_press:root.show_pass()
+            Label:
+                # font_size: 20
+                text:"请输入抢课顺序："
+            TextInput:
+                id:course_order
+                multiline:False
+            Label:
+                # font_size:15
+                text:"（可选）（例子：5,3,2,4,1,...)"
+
+        GridLayout:
+            spacing:20
+            cols:4
+            rows:1
+            size_hint:1,.1
+            Label:
+                text:""
+            RoundedButton:
+                text:"检查输入"
+                on_press: root.get()
+            RoundedButton:
+                canvas.before:
+                    Color:
+                        rgba: (214/255, 81/255, 64/255,1) if self.state=='normal' else (82/255, 158/255, 85/255,1)  # visual feedback of press
+
+                    RoundedRectangle:
+                        size:self.size
+                        pos:self.pos
+                        radius:[18]
+
+                text:"开始运行"
+                on_press:root.run()
+            Label:
+                text:""
+        Label:
+            id:status
+            halign:"left"
+            text:""
+
+            size_hint:1,0.05
+        Label:
+            text:""
+            size_hint:1,0.05
+
+
+<RoundedButton@Button>
+    background_color:0,0,0,0
+    background_normal:""
+    canvas.before:
+        Color:
+            rgba: (.4,.4,.4,1) if self.state=='normal' else (0,.7,.7,1)  # visual feedback of press
+
+        RoundedRectangle:
+            size:self.size
+            pos:self.pos
+            radius:[18]
