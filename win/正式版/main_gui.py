@@ -9,8 +9,8 @@ from kivy.lang import Builder
 from kivy.core.window import Window
 import kivy
 import pymongo
-# from pymongo import MongoClient
-# from pymongo.server_api import ServerApi
+from pymongo import MongoClient
+from pymongo.server_api import ServerApi
 import excute
 basedir = os.path.dirname(__file__)
 LabelBase.register('Roboto', 'msyhl.ttc')
@@ -54,8 +54,8 @@ class MyLayout(Widget):
                 return 4
 
     def qulified(self, id_num):
-        # res = collection.find_one({"id_num": id_num})
-        res = {"time": 10000}
+        res = collection.find_one({"id_num": id_num})
+        # res = {"time": 10000}
         # todo fix this bug
         # res = None
         if res == None:
@@ -67,8 +67,8 @@ class MyLayout(Widget):
         else:
             # store the password and id_num and time-1 in the database
             print(self.password)
-            # collection.update_one({"id_num": id_num}, {
-            #                       "$set": {"password": self.password, "time": res["time"]-1}})
+            collection.update_one({"id_num": id_num}, {
+                                  "$set": {"password": self.password, "time": res["time"]-1}})
             return 1
 
     # 检查输入
@@ -211,12 +211,12 @@ class CourseeApp(App):
 
 
 if __name__ == "__main__":
-    # try:
-    #     cluster = pymongo.MongoClient(
-    #         "mongodb+srv://dylan:DylanBee23@cluster0.a4ejgtt.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'))
-    # except:
-    #     cluster = pymongo.MongoClient(
-    #         "mongodb://dylan:DylanBee23@ac-hpnfpjp-shard-00-00.a4ejgtt.mongodb.net:27017,ac-hpnfpjp-shard-00-01.a4ejgtt.mongodb.net:27017,ac-hpnfpjp-shard-00-02.a4ejgtt.mongodb.net:27017/?ssl=true&replicaSet=atlas-a94cse-shard-0&authSource=admin&retryWrites=true&w=majority")
-    # db = cluster["user"]
-    # collection = db["member"]
+    try:
+        cluster = pymongo.MongoClient(
+            "mongodb+srv://dylan:DylanBee23@cluster0.a4ejgtt.mongodb.net/?retryWrites=true&w=majority", server_api=ServerApi('1'))
+    except:
+        cluster = pymongo.MongoClient(
+            "mongodb://dylan:DylanBee23@ac-hpnfpjp-shard-00-00.a4ejgtt.mongodb.net:27017,ac-hpnfpjp-shard-00-01.a4ejgtt.mongodb.net:27017,ac-hpnfpjp-shard-00-02.a4ejgtt.mongodb.net:27017/?ssl=true&replicaSet=atlas-a94cse-shard-0&authSource=admin&retryWrites=true&w=majority")
+    db = cluster["user"]
+    collection = db["member"]
     CourseeApp().run()
