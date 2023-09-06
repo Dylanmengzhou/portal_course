@@ -82,15 +82,15 @@ def execute(id_num, password, usr_setting, usr_setting_course_order):
     request_url = request_url + "?access_token=" + access_token
     headers = {'content-type': 'application/x-www-form-urlencoded'}
 
-    def captcha_ocr(base):
-        params = {"image": base}
-        response = requests.post(request_url, data=params, headers=headers)
+    # def captcha_ocr(base):
+    #     params = {"image": base}
+    #     response = requests.post(request_url, data=params, headers=headers)
 
-        if response:
-            captcha = response.json(
-            )['words_result'][0]['words'].replace(" ", "")
-            print(captcha)
-        return captcha
+    #     if response:
+    #         captcha = response.json(
+    #         )['words_result'][0]['words'].replace(" ", "")
+    #         print(captcha)
+    #     return captcha
 
     # 获得url，开始selenium测试
     # add options
@@ -184,8 +184,8 @@ def execute(id_num, password, usr_setting, usr_setting_course_order):
             temp_log_record(f"课程名称:{course_name}")
             # print("课程名称:", course_name)
 
-            register =WebDriverWait(key, 1000, 0.1).until(
-                    EC.presence_of_element_located((By.XPATH, "td[2]/span/input")))
+            register = WebDriverWait(key, 1000, 0.1).until(
+                EC.presence_of_element_located((By.XPATH, "td[2]/span/input")))
             # key.find_element(By.XPATH, "td[2]/span/input")
             register_status = register.is_displayed()
             if register_status:
